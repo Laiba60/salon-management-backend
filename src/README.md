@@ -14,6 +14,9 @@ Follow these steps to run the project on your local machine:
 ```bash
 git clone <your-repo-url>
 cd salon-backend
+
+
+
 # Products API
 
 ## Example GET Request
@@ -24,6 +27,13 @@ Response:
   { "id": 1, "name": "Shampoo", "price": 500 },
   { "id": 2, "name": "Hair Oil", "price": 300 }
 ]
+## Get product by id
+GET /api/products/1
+{
+  "id": 1,
+  "name": "Shampoo",
+  "price": 500
+}
 
 ## Example POST Request
 POST /api/products
