@@ -1,2 +1,17 @@
+# Node modules
 node_modules
+
+# Environment variables
 .env
+
+# Firebase Admin SDK service account
+src/*.json
+
+# Firebase config and rules
+.firebaserc
+firebase.json
+firestore.rules
+firestore.indexes.json
+
+# Optional: log files
+*.log
