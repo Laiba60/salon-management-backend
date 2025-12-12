@@ -49,4 +49,19 @@ Response:
   "name": "Face Wash",
   "price": 700
 }
+# Firestore Products API
+
+## What is Firestore?
+Firestore is a NoSQL cloud database from Firebase. It stores data in documents inside collections and can be accessed in real-time.
+
+## Example POST request body
+{
+  "name": "Laptop",
+  "price": 1200,
+  "description": "High-performance laptop"
+}
+
+## Example GET URL
+- Get all products: http://localhost:5000/api/products
+- Get one product: http://localhost:5000/api/products/<productId>
 

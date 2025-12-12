@@ -1,31 +1,43 @@
+
 import express from "express";
+import db from "../firebase.js"; 
+
 const router = express.Router();
 
-let products = [
-  { id: 1, name: "Shampoo" },
-  { id: 2, name: "Hair Oil" },
-];
 
-// GET /api/products
-router.get("/", (req, res) => {
-  res.json(products);
+router.get("/", async (req, res) => {
+  try {
+    const snapshot = await db.collection("products").get();
+    const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    res.json(products);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error getting products" });
+  }
 });
 
-// GET /api/products/:id
-router.get("/:id", (req, res) => {
-  const product = products.find(p => p.id == req.params.id);
-  if (!product) return res.status(404).json({ message: "Product not found" });
-  res.json(product);
+
+router.get("/:id", async (req, res) => {
+  try {
+    const doc = await db.collection("products").doc(req.params.id).get();
+    if (!doc.exists) return res.status(404).json({ message: "Product not found" });
+    res.json({ id: doc.id, ...doc.data() });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error getting product" });
+  }
 });
 
-// POST /api/products
-router.post("/", (req, res) => {
-  const newProduct = {
-    id: products.length + 1,
-    name: req.body.name,
-  };
-  products.push(newProduct);
-  res.status(201).json(newProduct);
+
+router.post("/", async (req, res) => {
+  try {
+    const newProduct = req.body;
+    const docRef = await db.collection("products").add(newProduct);
+    res.status(201).json({ id: docRef.id, ...newProduct });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error adding product" });
+  }
 });
 
 export default router;
