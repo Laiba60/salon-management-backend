@@ -1,18 +1,18 @@
-
 import express from "express";
-import dotenv from "dotenv";
-dotenv.config();
-
-import productsRouter from "./routes/products.js";
+import customerRoutes from "./routes/customerRoutes.js";
+import appointmentRoutes from "./routes/appointmentRoutes.js";
 
 const app = express();
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Salon Backend API is running ");
+});
 
-app.use("/api/products", productsRouter);
+app.use("/customers", customerRoutes);
+app.use("/appointments", appointmentRoutes);
 
-const PORT = process.env.PORT || 5000;
-
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

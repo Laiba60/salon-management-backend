@@ -5,7 +5,7 @@ node_modules
 .env
 
 # Firebase Admin SDK service account
-src/*.json
+src/config/*.json
 
 # Firebase config and rules
 .firebaserc
