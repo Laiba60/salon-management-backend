@@ -62,6 +62,17 @@ Firestore is a NoSQL cloud database from Firebase. It stores data in documents i
 }
 
 ## Example GET URL
+## About Auth Routes
 - Get all products: http://localhost:5000/api/products
 - Get one product: http://localhost:5000/api/products/<productId>
 
+
+Register: Users can create an account with name, email, password, and role.
+
+Login: Users can log in to receive a JWT token.
+
+Security: Passwords are hashed with bcrypt. JWT used for session tokens.
+
+Database: Users stored in Firestore.
+
+Structure: Controllers handle logic, routes handle API endpoints, utils handle hashing and JWT.
