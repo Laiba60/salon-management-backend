@@ -1,10 +1,7 @@
 import db from "../config/firebase.js";
-
-
 export const createCustomer = async (req, res) => {
   try {
     const customerData = req.body;
-
     const docRef = await db.collection("customers").add(customerData);
 
     res.status(201).json({
@@ -15,8 +12,6 @@ export const createCustomer = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
 export const getAllCustomers = async (req, res) => {
   try {
     const snapshot = await db.collection("customers").get();
@@ -31,8 +26,6 @@ export const getAllCustomers = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
 export const getCustomerById = async (req, res) => {
   try {
     const { id } = req.params;

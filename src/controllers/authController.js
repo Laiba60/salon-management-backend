@@ -1,4 +1,4 @@
-// src/controllers/authController.js
+
 import { hashPassword, comparePassword } from '../utils/hash.js';
 import { generateToken } from '../utils/jwt.js';
 import  db  from '../config/firebase.js';
@@ -6,16 +6,10 @@ import  db  from '../config/firebase.js';
 export const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
-
-    
     const userRef = db.collection('users').doc(email);
     const doc = await userRef.get();
     if (doc.exists) return res.status(400).json({ message: "User already exists" });
-
-   
     const hashedPassword = await hashPassword(password);
-
-    
     await userRef.set({
       name,
       email,
