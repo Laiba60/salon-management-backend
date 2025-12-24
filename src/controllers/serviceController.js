@@ -5,7 +5,7 @@ export const createService = async (req, res) => {
     const { name, price, duration } = req.body;
     await db.collection("services").add({ name, price, duration, createdAt: new Date() });
 
-    res.status(201).json({ message: "Service created" });
+    res.status(200).json({ message: "Service created" });
   } catch (error) {
     res.status(500).json({ message: "Error creating service" });
   }

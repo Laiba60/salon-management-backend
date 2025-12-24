@@ -5,7 +5,7 @@ export const createCustomer = async (req, res) => {
     const customerData = req.body;
     const docRef = await db.collection("customers").add(customerData);
 
-    res.status(201).json({
+    res.status(200).json({
       message: "Customer created successfully",
       id: docRef.id,
     });
