@@ -5,17 +5,7 @@ import roleMiddleware from "../middlewares/roleMiddleware.js";
 
 const router = express.Router();
 
-router.post(
-  "/create",
-  authMiddleware,
-  roleMiddleware("admin"),
-  createService
-);
-
-router.get(
-  "/",
-  authMiddleware,
-  getServices
-);
+router.post("/create", authMiddleware, roleMiddleware("admin"), createService);
+router.get("/", authMiddleware, getServices);
 
 export default router;
