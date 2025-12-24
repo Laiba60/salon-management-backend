@@ -2,31 +2,39 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import express from "express";
+
+import authRoutes from "./routes/authRoutes.js";
+import customerRoutes from "./routes/customerRoutes.js";
+import appointmentRoutes from "./routes/appointmentRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
+
+import authMiddleware from "./middlewares/authMiddleware.js";
+
+// __dirname setup (ES Modules)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 👇 FORCE dotenv to load from root
+// Load env
 dotenv.config({ path: path.join(__dirname, ".env") });
-
-import express from "express";
-import customerRoutes from "./routes/customerRoutes.js";
-import appointmentRoutes from "./routes/appointmentRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 app.use(express.json());
 
-app.use("/auth", authRoutes);
-
+// 🌐 Public route
 app.get("/", (req, res) => {
   res.send("Salon Backend API is running");
 });
 
-app.use("/customers", customerRoutes);
-app.use("/appointments", appointmentRoutes);
+// 🔓 Public auth routes
+app.use("/auth", authRoutes);
+
+// 🔒 Protected routes
+app.use("/customers", authMiddleware, customerRoutes);
+app.use("/appointments", authMiddleware, appointmentRoutes);
+app.use("/services", authMiddleware, serviceRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log("JWT_SECRET:", process.env.JWT_SECRET); // 🔍 DEBUG
   console.log(`Server running on port ${PORT}`);
 });
